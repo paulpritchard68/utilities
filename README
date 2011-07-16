@@ -1,2 +1,32 @@
-Macsen's Transitioning Background
+Macsen's Transitioning Background (MTB)
 An XML based wallpaper switcher for Gnome 2
+
+BEFORE YOU BEGIN
+================
+MTB builds a transition XML file in a folder based on the image files that are in that folder, You can then select that XML file as your Gnome background to get a transitioning wallpaper (in much the same way as the Gnome Cosmos background works).
+
+Before you can use MTB, you need to create the image folder and put some pictures in it. The default folder used by MTB is /usr/share/backgrounds/macsen/ but this can be overridden when you run the command.
+
+USING MTB
+=========
+SYNOPSIS
+mtb [OPTION]
+
+DESCRIPTION
+Builds/rebuilds a transitioning background XML based on the image files in a given folder. The XML file will be placed in the same folder as the images.
+
+OPTIONS
+-p --path
+Pathname to the image files and the target path for the generated XML.
+Default is /usr/share/backgrounds/macsen
+
+-s --static
+Length of time (in seconds) that a wallpaper image should be displayed before the next is selected.
+Default is 1200 seconds (20 minutes)
+
+-t --transition
+Length of time (in seconds) taken to transition from one image to the next.
+Default is 5 seconds.
+
+-h --help
+This option display this help and exit, but right now it's on the TODO list. 
