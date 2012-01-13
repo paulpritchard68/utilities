@@ -1,4 +1,6 @@
 #!/usr/bin/python
+"""A command line front end for the dicelib library"""
+
 #
 # dicetastic.py
 # Copyright (C) Paul Pritchard 2011 <paulpritchard68@gmail.com>
@@ -18,23 +20,23 @@
 
 from dicelib import Dice 
 
-def RollDice():
-	'Prompts for number and type of dice, then rolls them'
-	RollThis = Dice()
+def roll_dice():
+    """Prompts for number and type of dice, then rolls them"""
+    roll_this = Dice()
 
-	d = 0
-	while d < 1: 
-		numberDtype = raw_input("Ladies and gentlemen, roll the dice: ")
+    index_d = 0
+    while index_d < 1: 
+        count_sides = raw_input("Ladies and gentlemen, roll the dice: ")
 
-		#Check that the form is [number]d[type]
-		d=numberDtype.lower().find("d")
-		if d  < 1:
-			print "Badly formatted dice string. Try again."
-	
-	RollThis.setCount(int(numberDtype[0:d]))
-	RollThis.setSides(int(numberDtype[d + 1]))
+        #Check that the form is [number]d[type]
+        index_d = count_sides.lower().find("d")
+        if index_d  < 1:
+            print "Badly formatted dice string. Try again."
+    
+    roll_this.set_count(int(count_sides[0:index_d]))
+    roll_this.set_sides(int(count_sides[index_d + 1]))
 
-	print RollThis.rollDice()
+    print roll_this.roll_dice()
 
 if __name__ == "__main__":
-	RollDice()
+    roll_dice()

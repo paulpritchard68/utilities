@@ -1,3 +1,6 @@
+#! /usr/bin/python
+""" A dice rolling library """
+
 # dicelib.py
 #
 # Copyright (C) 2011 - Paul Pritchard
@@ -18,19 +21,25 @@
 import random
 
 class Dice:
-	def __init__(self):
-		self.sides = 6
-		self.count = 1
+    """The Dice class. This handles dice set definition and rolling"""
+    
+    def __init__(self):
+        """Initialise the dice with default values of 1d6. 
+	No rolls yet, so that's an empty list"""
+        self.sides = 6
+        self.count = 1
+        self.rolls = []
 
-	def setSides(self, sides):
-		self.sides = sides
+    def set_sides(self, sides):
+        """Set the number of sides"""
+        self.sides = sides
 
-	def setCount(self, count):
-		self.count = count
+    def set_count(self, count):
+        """Set the number of dice"""
+        self.count = count
 
-	def rollDice(self):
-		'Rolls the selected dice'
-		self.rolls = []
-		for i in range(0, self.count):
-			self.rolls.append(random.randrange(self.sides) + 1)
-		return self.rolls
+    def roll_dice(self):
+        """Rolls the selected dice"""
+        for i in range(0, self.count):
+            self.rolls.append(random.randrange(self.sides) + 1)
+        return self.rolls
