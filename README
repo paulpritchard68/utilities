@@ -17,8 +17,8 @@ Using Dicelib
 =============
 This is the dice library. Class Dice has three methods:
 
-setSides sets the number of sides of each die to be rolled (default is 6)
+set_sides sets the number of sides of each die to be rolled (default is 6)
 
-setCount sets the number of dice to be rolled (default is 1)
+set_count sets the number of dice to be rolled (default is 1)
 
-rollDice rolls the dice and returns the results as a list.
+roll_dice rolls the dice and returns the results as a list.
