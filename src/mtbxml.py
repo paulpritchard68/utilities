@@ -1,130 +1,149 @@
 # mtbxml.py
-#
-# Copyright (C) 2011 - Paul Pritchard
-#
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 2 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+""" XML Library for Macsens element_transitioning Background
+
+Copyright (C) 2011 - Paul Pritchard
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <http://www.gnu.org/licenses/>."""
 
 import os
 import mimetypes
 from xml.dom.minidom import Document
 
-class Background:
-	def __init__(self):
-		self.static=1200
-		self.transition=5
-		self.path='/usr/share/backgrounds/macsen/'
-	def setStatic(self, value):
-		self.static=value
-	def getStatic(self):
-		return self.static
-	def setTransition(self, value):
-		self.transition=value
-	def getTransition(self):
-		return self.transition
-	def setPath(self, value):
-		self.path=value
-	def getPath(self):
-		return self.path
-	def build(self):
-		BackgroundXML=Document()
+class Transitions:
+    """ The document XML Class"""
+    
+    def __init__(self):
+        """ Initialise """
+        self.static = 1200
+        self.transition = 5
+        self.path = '/usr/share/backgrounds/macsen/'
+    
+    def set_static(self, value):
+        """ Sets static time - how lomg each image should be displayed"""
+        self.static = value
+    
+    def get_static(self):
+        """ Retrieve static time """
+        return self.static
+    
+    def set_transition(self, value):
+        """ Sets transition time """
+        self.transition = value
+    
+    def get_transition(self):
+        """ Retrieve transition time """
+        return self.transition
+    
+    def set_path(self, value):
+        """ Sets folder path for the XML """
+        self.path = value
+    
+    def get_path(self):
+        """ Retrieves folder path for the XML """
+        return self.path
+    
+    def build(self):
+        """ Build the XML file """
+        background_xml = Document()
 
-		Background=BackgroundXML.createElement("background")
-		BackgroundXML.appendChild(Background)
-		
-		StartTime=BackgroundXML.createElement("starttime")
-		Background.appendChild(StartTime)
+        document = background_xml.createElement("background")
+        background_xml.appendChild(document)
+        
+        start_time = background_xml.createElement("starttime")
+        document.appendChild(start_time)
 
-		Year=BackgroundXML.createElement("year")
-		Year.appendChild(BackgroundXML.createTextNode("2007"))
-		StartTime.appendChild(Year)
+        start_year = background_xml.createElement("year")
+        start_year.appendChild(background_xml.createTextNode("2007"))
+        start_time.appendChild(start_year)
 
-		Month=BackgroundXML.createElement("month")
-		Month.appendChild(BackgroundXML.createTextNode("03"))
-		StartTime.appendChild(Month)
+        start_month = background_xml.createElement("month")
+        start_month.appendChild(background_xml.createTextNode("03"))
+        start_time.appendChild(start_month)
 
-		Day=BackgroundXML.createElement("day")
-		Day.appendChild(BackgroundXML.createTextNode("21"))
-		StartTime.appendChild(Day)
+        start_day = background_xml.createElement("day")
+        start_day.appendChild(background_xml.createTextNode("21"))
+        start_time.appendChild(start_day)
 
-		Hour=BackgroundXML.createElement("hour")
-		Hour.appendChild(BackgroundXML.createTextNode("00"))
-		StartTime.appendChild(Hour)
+        start_hour = background_xml.createElement("hour")
+        start_hour.appendChild(background_xml.createTextNode("00"))
+        start_time.appendChild(start_hour)
 
-		Minute=BackgroundXML.createElement("minute")
-		Minute.appendChild(BackgroundXML.createTextNode("00"))
-		StartTime.appendChild(Minute)
+        start_minute = background_xml.createElement("minute")
+        start_minute.appendChild(background_xml.createTextNode("00"))
+        start_time.appendChild(start_minute)
 
-		Second=BackgroundXML.createElement("second")
-		Second.appendChild(BackgroundXML.createTextNode("00"))
-		StartTime.appendChild(Second)
+        start_second = background_xml.createElement("second")
+        start_second.appendChild(background_xml.createTextNode("00"))
+        start_time.appendChild(start_second)
 
-		
-		ImageList=os.listdir (self.path)
-		FirstImage=True
-		for image in ImageList:
-			mimetype = mimetypes.guess_type (image)[0]
-			if mimetype and mimetype.split ('/')[0] == "image":
-				if FirstImage==False:
-					Transition=BackgroundXML.createElement("transition")
-					Background.appendChild(Transition)
+        
+        image_list = os.listdir (self.path)
+        first_image = True
+        for image in image_list:
+            mimetype = mimetypes.guess_type (image)[0]
+            if mimetype and mimetype.split ('/')[0] == "image":
+                if first_image == False:
+                    element_transition = background_xml.createElement("transition")
+                    document.appendChild(element_transition)
 
-					Duration=BackgroundXML.createElement("duration")
-					Duration.appendChild(BackgroundXML.createTextNode(str(self.getTransition ())))
-					Transition.appendChild(Duration)
+                    element_duration = background_xml.createElement("duration")
+                    element_duration.appendChild(background_xml.createTextNode(str(self.get_transition ())))
+                    element_transition.appendChild(element_duration)
 
-					From=BackgroundXML.createElement("from")
-					From.appendChild(BackgroundXML.createTextNode(self.getPath () + PreviousImage))
-					Transition.appendChild(From)
+                    element_from = background_xml.createElement("from")
+                    element_from.appendChild(background_xml.createTextNode(self.get_path () + previous_image))
+                    element_transition.appendChild(element_from)
 
-					To=BackgroundXML.createElement("to")
-					To.appendChild(BackgroundXML.createTextNode(self.getPath () + image))
-					Transition.appendChild(To)
-				
-				Static=BackgroundXML.createElement("static")
-				Background.appendChild(Static)
+                    element_to = background_xml.createElement("to")
+                    element_to.appendChild(background_xml.createTextNode(self.get_path () + image))
+                    element_transition.appendChild(element_to)
+                
+                element__static = background_xml.createElement("static")
+                document.appendChild(element__static)
 
-				Duration=BackgroundXML.createElement("duration")
-				Duration.appendChild(BackgroundXML.createTextNode(str(self.getStatic ())))
-				Static.appendChild(Duration)
+                element_duration = background_xml.createElement("duration")
+                element_duration.appendChild(background_xml.createTextNode(str(self.get_static ())))
+                element__static.appendChild(element_duration)
 
-				File=BackgroundXML.createElement("file")
-				File.appendChild(BackgroundXML.createTextNode(self.getPath () + image))
-				Static.appendChild(File)
+                element_file = background_xml.createElement("file")
+                element_file.appendChild(background_xml.createTextNode(self.get_path () + image))
+                element__static.appendChild(element_file)
 
-				PreviousImage=image
+                previous_image = image
 
-				if FirstImage==True:
-					FirstImage=False
-					RolloverImage=image
-					
-		Transition=BackgroundXML.createElement("transition")
-		Background.appendChild(Transition)
+                if first_image == True:
+                    first_image = False
+                    rollover_image = image
+                    
+        element_transition = background_xml.createElement("transition")
+        document.appendChild(element_transition)
 
-		Duration=BackgroundXML.createElement("duration")
-		Duration.appendChild(BackgroundXML.createTextNode(str(self.transition)))
-		Transition.appendChild(Duration)
+        element_duration = background_xml.createElement("duration")
+        element_duration.appendChild(background_xml.createTextNode(str(self.transition)))
+        element_transition.appendChild(element_duration)
 
-		From=BackgroundXML.createElement("from")
-		From.appendChild(BackgroundXML.createTextNode(self.getPath () + PreviousImage))
-		Transition.appendChild(From)
+        element_from = background_xml.createElement("from")
+        element_from.appendChild(background_xml.createTextNode(self.get_path () + previous_image))
+        element_transition.appendChild(element_from)
 
-		To=BackgroundXML.createElement("to")
-		To.appendChild(BackgroundXML.createTextNode(self.getPath () + RolloverImage))
-		Transition.appendChild(To)
+        element_to = background_xml.createElement("to")
+        element_to.appendChild(background_xml.createTextNode(self.get_path () + rollover_image))
+        element_transition.appendChild(element_to)
 
-		FilePath=self.getPath () + "macsen.xml"
-		file=open(FilePath, 'w')
-		BackgroundXML.writexml(file, indent="") #, addindent="  ", newl="\n")
-		file.close()
-	
+        file_path = self.get_path () + "macsen.xml"
+        file_name = open(file_path, 'w')
+        background_xml.writexml(file_name, indent="") #, addindent="  ", newl="\n")
+        file_name.close()
+    
