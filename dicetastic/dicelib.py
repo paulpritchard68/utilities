@@ -25,7 +25,7 @@ class Dice:
     
     def __init__(self):
         """Initialise the dice with default values of 1d6. 
-	No rolls yet, so that's an empty list"""
+        No rolls yet, so that's an empty list"""
         self.sides = 6
         self.count = 1
         self.rolls = []
@@ -34,9 +34,17 @@ class Dice:
         """Set the number of sides"""
         self.sides = sides
 
+    def get_sides(self):
+        """Get the number of sides"""
+        return self.sides
+
     def set_count(self, count):
         """Set the number of dice"""
         self.count = count
+
+    def get_count(self):
+        """Get the number of dice"""
+        return self.count
 
     def roll_dice(self):
         """Rolls the selected dice"""
