@@ -21,7 +21,7 @@ Loop. Causes the program to loop through the request/roll until you enter a roll
 
 Using Dicelib
 =============
-This is the dice library. Class Dice has three methods:
+This is the dice library. Class Dice has the following methods:
 
 set_sides sets the number of sides of each die to be rolled (default is 6)
 
