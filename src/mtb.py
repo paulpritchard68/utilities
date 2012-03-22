@@ -20,7 +20,6 @@
 import sys
 import argparse
 from mtbxml import Transitions
-from mtbhelp import mtb_help
 
 XML_DOC = Transitions()
 
