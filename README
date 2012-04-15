@@ -4,7 +4,7 @@ A simple photo renaming appplication
 USING PHOTOG
 ===========
 SYNOPSIS
-mtb PREFIX
+photog PREFIX
 
 DESCRIPTION
 For each image file in the current folder, replaces the PREFIX of the file name with a ten character string representing the date the photo was taken.
