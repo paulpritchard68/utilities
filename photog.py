@@ -25,6 +25,7 @@ from PIL import Image
 from PIL.ExifTags import TAGS
 
 def get_date(filename):
+    """ Retrieves the date the photo was taken """
     image = Image.open(filename)
     info = image._getexif()
     for tag, value in info.items():
@@ -33,6 +34,9 @@ def get_date(filename):
             return value[:4] + value[5:7] + value[8:10]
 
 def rename_files(prefix):
+    """ Iterates through the list of files in the current directory.
+        For all image files, attempts to rename the file by replacing the prefix
+        with the date """
     current_path = os.getcwd()
     file_list = os.listdir(current_path)
     for filename in file_list:
