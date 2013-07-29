@@ -1,32 +1,22 @@
 Macsen's Transitioning Background (MTB)
-An XML based wallpaper switcher for Gnome 2
+A simple wallpaper switcher for Gnome 3
+
+DISCLAIMER
+==========
+This is very much a work in progress at the moment. It works, but there is a bunch of hard coding in here (which will need to be removed at some point) and some manual configuration/set-up that you will need to do first.
 
 BEFORE YOU BEGIN
 ================
-MTB builds a transition XML file in a folder based on the image files that are in that folder, You can then select that XML file as your Gnome background to get a transitioning wallpaper (in much the same way as the Gnome Cosmos background works).
+MTB looks for image files in subfolders of the ~/Pictures/Backgrounds
 
-Before you can use MTB, you need to create the image folder and put some pictures in it. The default folder used by MTB is /usr/share/backgrounds/macsen/ but this can be overridden when you run the command.
+Currently, three folders are recognised (but this will change): Daytime, Evening, Night. The program selects the appropriate folder based on the time of day.
+
+Obviously, you will need to manually create these folders before the script can be run. You will also neet to put some images in them, of course.
 
 USING MTB
 =========
-SYNOPSIS
-mtb [OPTION]
+Use cron. Here's a sample crontab:
 
-DESCRIPTION
-Builds/rebuilds a transitioning background XML based on the image files in a given folder. The XML file will be placed in the same folder as the images.
+*/20 * * * * /path/to/mtb.py
 
-OPTIONS
--p --path
-Pathname to the image files and the target path for the generated XML.
-Default is /usr/share/backgrounds/macsen
-
--s --static
-Length of time (in seconds) that a wallpaper image should be displayed before the next is selected.
-Default is 1200 seconds (20 minutes)
-
--t --transition
-Length of time (in seconds) taken to transition from one image to the next.
-Default is 5 seconds.
-
--h --help
-This option display this help and exit, but right now it's on the TODO list. 
+And that's it. 
