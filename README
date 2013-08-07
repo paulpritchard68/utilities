@@ -9,9 +9,11 @@ BEFORE YOU BEGIN
 ================
 MTB looks for image files in subfolders of the ~/Pictures/Backgrounds
 
-Currently, three folders are recognised (but this will change): Daytime, Evening, Night. The program selects the appropriate folder based on the time of day.
+You can use up to 24 folders, named 00 to 23. The folder name represents the hour at which MTB will start for looking in that folder for images.
 
-Obviously, you will need to manually create these folders before the script can be run. You will also neet to put some images in them, of course.
+If, for example, you have two folders named 08 and 17, MTB will start using the images in folder 08 at 08:00 and then switch to using folder 17 at 17:00.
+
+Obviously, you will need to manually create these folders before the script can be run. You will also neet to put some images in them.
 
 USING MTB
 =========

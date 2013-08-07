@@ -22,18 +22,24 @@ import mimetypes
 from time import localtime, struct_time
 
 time_now = localtime()
-hour_now = time_now.tm_hour
+hour_now = str(time_now.tm_hour)
+if len(hour_now) == 1:
+    hour_now = '0' + hour_now
 
-if hour_now < 19 and hour_now > 6:
-    select_set = "Daytime/"
-elif hour_now < 21 and hour_now >= 19:
-    select_set = "Evening/"
-else: 
-    select_set = "Night/"
+backgrounds = os.environ['HOME'] + "/Pictures/Backgrounds/"
+timefolders = os.walk(backgrounds).next()[1]
+timefolders.sort()
+timefolders.reverse()
+current_folder = ''
+for tick in timefolders:
+    if current_folder == '' and tick >= '00' and tick <= '24': 
+        current_folder = tick + '/'
+    if tick >= '00' and tick <= '24' and tick <= hour_now:
+        current_folder = tick + '/'
+        break
 
-backgrounds = os.environ['HOME'] + "/Pictures/Backgrounds/" + select_set
+backgrounds = backgrounds + current_folder
 pictures = []
-
 for filename in os.listdir(backgrounds):
     mimetype = mimetypes.guess_type(filename)[0]
     if mimetype and mimetype.split('/')[0] == "image":
