@@ -32,9 +32,9 @@ timefolders.sort()
 timefolders.reverse()
 current_folder = ''
 for tick in timefolders:
-    if current_folder == '' and tick >= '00' and tick <= '24': 
+    if current_folder == '' and tick >= '00' and tick <= '23': 
         current_folder = tick + '/'
-    if tick >= '00' and tick <= '24' and tick <= hour_now:
+    if tick >= '00' and tick <= '23' and tick <= hour_now:
         current_folder = tick + '/'
         break
 
