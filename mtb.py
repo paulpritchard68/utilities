@@ -1,4 +1,4 @@
-#! /usr/bin/python
+#! /usr/bin/python2
 """ Yet another, veryt simple background switcher for the Gnome 3 Desktop
 
  mtb.py
@@ -19,32 +19,77 @@
 import os
 import random
 import mimetypes
-from time import localtime, struct_time
+from time import localtime, struct_time, sleep
+import sys
+import argparse
+from ConfigParser import ConfigParser
 
-time_now = localtime()
-hour_now = str(time_now.tm_hour)
-if len(hour_now) == 1:
-    hour_now = '0' + hour_now
+def switch_wallpaper():
 
-backgrounds = os.environ['HOME'] + "/Pictures/Backgrounds/"
-timefolders = os.walk(backgrounds).next()[1]
-timefolders.sort()
-timefolders.reverse()
-current_folder = ''
-for tick in timefolders:
-    if current_folder == '' and tick >= '00' and tick <= '23': 
-        current_folder = tick + '/'
-    if tick >= '00' and tick <= '23' and tick <= hour_now:
-        current_folder = tick + '/'
-        break
+    while 1 == 1:
+        time_now = localtime()
+        hour_now = str(time_now.tm_hour)
+        if len(hour_now) == 1:
+            hour_now = '0' + hour_now
 
-backgrounds = backgrounds + current_folder
-pictures = []
-for filename in os.listdir(backgrounds):
-    mimetype = mimetypes.guess_type(filename)[0]
-    if mimetype and mimetype.split('/')[0] == "image":
-        pictures.append (filename)
+        backgrounds = os.environ['HOME'] + "/Pictures/Backgrounds/"
+        timefolders = os.walk(backgrounds).next()[1]
+        timefolders.sort()
+        timefolders.reverse()
+        current_folder = ''
+        for tick in timefolders:
+            if current_folder == '' and tick >= '00' and tick <= '23': 
+                current_folder = tick + '/'
+            if tick >= '00' and tick <= '23' and tick <= hour_now:
+                current_folder = tick + '/'
+                break
 
-picture = random.randrange (0, len(pictures))
-fullpath = '"file:///' + backgrounds + pictures[picture] + '"'
-os.system("DISPLAY=:0 GSETTINGS_BACKEND=dconf gsettings set org.gnome.desktop.background picture-uri '%s'" % (fullpath))
+        backgrounds = backgrounds + current_folder
+        pictures = []
+        for filename in os.listdir(backgrounds):
+            mimetype = mimetypes.guess_type(filename)[0]
+            if mimetype and mimetype.split('/')[0] == "image":
+                pictures.append (filename)
+
+        picture = random.randrange (0, len(pictures))
+        fullpath = '"file:///' + backgrounds + pictures[picture] + '"'
+        os.system("DISPLAY=:0 GSETTINGS_BACKEND=dconf gsettings set org.gnome.desktop.background picture-uri '%s'" % (fullpath))
+
+        config = ConfigParser()
+        config.read(['mtb.cfg', os.path.expanduser('~/.mtb.cfg')])
+        wait_minutes = config.get('Main', 'wait')
+        wait_seconds = int(wait_minutes) * 60
+        sleep(wait_seconds)
+
+def set_wait(wait):
+    config = ConfigParser()
+    config.read(['mtb.cfg', os.path.expanduser('~/.mtb.cfg')])
+    config_out = open(os.path.expanduser('~/.mtb.cfg'), 'w')
+
+    try:
+        config.set('Main', 'wait', wait)
+    except:
+        config.add_section('Main')
+        config.set('Main', 'wait', wait)
+    
+    config.write(config_out)
+    config_out.close()
+
+def main():
+    """ The main event 
+        Parses the entered arguments and figures out what to do with them """
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-w', '--wait', action='store', help='Wait time (minutes)')
+    
+    try:
+        args = parser.parse_args()
+    except:
+        sys.exit(2)
+
+    if args.wait:
+        set_wait(args.wait)
+    else:
+        switch_wallpaper()
+
+if __name__ == "__main__":
+    main()

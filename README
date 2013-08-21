@@ -17,8 +17,11 @@ Obviously, you will need to manually create these folders before the script can 
 
 USING MTB
 =========
-Use cron. Here's a sample crontab:
+MTB can be set to change backgrounds at any interval (in minutes), but you do need to configure it first with the --wait switch.
 
-*/20 * * * * /path/to/mtb.py
+For example:
+mtb.py --wait=20
+... will set a wait time of 20 minutes between background switches.
 
-And that's it. 
+
+Once the wait time is set, you can execute MTB by calling it with no arguments. Since this program loops infinitely, it is probably best to add it to your start up applications using gnome-session-properties 
