@@ -20,8 +20,9 @@ USING MTB
 MTB can be set to change backgrounds at any interval (in minutes), but you do need to configure it first with the --wait switch.
 
 For example:
-mtb.py --wait=20
-... will set a wait time of 20 minutes between background switches.
+mtb --wait=15
+... will set a wait time of 15 minutes between background switches.
 
+If no wait time is set, a default of 20 minutes is used.
 
-Once the wait time is set, you can execute MTB by calling it with no arguments. Since this program loops infinitely, it is probably best to add it to your start up applications using gnome-session-properties 
+The switcher can be started by executing mtb with no options. This call is best added in your gnome startup applications.

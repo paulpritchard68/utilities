@@ -57,8 +57,13 @@ def switch_wallpaper():
 
         config = ConfigParser()
         config.read(['mtb.cfg', os.path.expanduser('~/.mtb.cfg')])
-        wait_minutes = config.get('Main', 'wait')
-        wait_seconds = int(wait_minutes) * 60
+
+        try:
+            wait_minutes = config.get('Main', 'wait')
+            wait_seconds = int(wait_minutes) * 60
+        except:
+            wait_seconds = 1200
+
         sleep(wait_seconds)
 
 def set_wait(wait):
