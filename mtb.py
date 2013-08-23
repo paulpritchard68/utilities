@@ -24,7 +24,7 @@ import sys
 import argparse
 from ConfigParser import ConfigParser
 
-def switch_wallpaper():
+def switch_wallpaper(noloop):
 
     while 1 == 1:
         time_now = localtime()
@@ -54,6 +54,9 @@ def switch_wallpaper():
         picture = random.randrange (0, len(pictures))
         fullpath = '"file:///' + backgrounds + pictures[picture] + '"'
         os.system("DISPLAY=:0 GSETTINGS_BACKEND=dconf gsettings set org.gnome.desktop.background picture-uri '%s'" % (fullpath))
+
+        if noloop:
+            break
 
         config = ConfigParser()
         config.read(['mtb.cfg', os.path.expanduser('~/.mtb.cfg')])
@@ -85,6 +88,7 @@ def main():
         Parses the entered arguments and figures out what to do with them """
     parser = argparse.ArgumentParser()
     parser.add_argument('-w', '--wait', action='store', help='Wait time (minutes)')
+    parser.add_argument('--noloop', action='store_true', help='Run once, then exit')
     
     try:
         args = parser.parse_args()
@@ -94,7 +98,7 @@ def main():
     if args.wait:
         set_wait(args.wait)
     else:
-        switch_wallpaper()
+        switch_wallpaper(args.noloop)
 
 if __name__ == "__main__":
     main()
