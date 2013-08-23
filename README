@@ -26,3 +26,5 @@ mtb --wait=15
 If no wait time is set, a default of 20 minutes is used.
 
 The switcher can be started by executing mtb with no options. This call is best added in your gnome startup applications.
+
+Other options can be displayed with mtb -h
