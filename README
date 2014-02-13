@@ -15,6 +15,10 @@ If, for example, you have two folders named 08 and 17, MTB will start using the 
 
 Obviously, you will need to manually create these folders before the script can be run. You will also neet to put some images in them.
 
+RANDOMISING THE LOCK SCREEN
+===========================
+MTB will also randomise the lock screen, if desired. This is not time sensitive - you just need to have a one or more pictures in ~/Pictures/Backgrounds/lock
+
 USING MTB
 =========
 MTB can be set to change backgrounds at any interval (in minutes), but you do need to configure it first with the --wait switch.

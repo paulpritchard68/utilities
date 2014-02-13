@@ -24,6 +24,16 @@ import sys
 import argparse
 from ConfigParser import ConfigParser
 
+def select_picture(backgrounds):
+    pictures = []
+    for filename in os.listdir(backgrounds):
+        mimetype = mimetypes.guess_type(filename)[0]
+        if mimetype and mimetype.split('/')[0] == "image":
+            pictures.append (filename)
+    picture = random.randrange (0, len(pictures))
+    fullpath = '"file:///' + backgrounds + pictures[picture] + '"'
+    return fullpath
+
 def switch_wallpaper(noloop):
 
     while 1 == 1:
@@ -45,15 +55,13 @@ def switch_wallpaper(noloop):
                 break
 
         backgrounds = backgrounds + current_folder
-        pictures = []
-        for filename in os.listdir(backgrounds):
-            mimetype = mimetypes.guess_type(filename)[0]
-            if mimetype and mimetype.split('/')[0] == "image":
-                pictures.append (filename)
-
-        picture = random.randrange (0, len(pictures))
-        fullpath = '"file:///' + backgrounds + pictures[picture] + '"'
+        fullpath = select_picture(backgrounds)
         os.system("DISPLAY=:0 GSETTINGS_BACKEND=dconf gsettings set org.gnome.desktop.background picture-uri '%s'" % (fullpath))
+
+        backgrounds = os.environ['HOME'] + "/Pictures/Backgrounds/lock/"
+        if os.path.isdir(backgrounds) == True:
+            fullpath = select_picture(backgrounds)
+            os.system("DISPLAY=:0 GSETTINGS_BACKEND=dconf gsettings set org.gnome.desktop.screensaver picture-uri '%s'" % (fullpath))
 
         if noloop:
             break
