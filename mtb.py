@@ -23,6 +23,13 @@ from time import localtime, struct_time, sleep
 import sys
 import argparse
 from ConfigParser import ConfigParser
+import subprocess
+
+def current_picture():
+    current_path = str(subprocess.check_output(["DISPLAY=:0 GSETTINGS_BACKEND=dconf gsettings get org.gnome.desktop.background picture-uri"], shell=True)).split("/")
+    current_picture = current_path[len(current_path)-1]
+    return current_picture[0:len(current_picture)-2]
+
 
 def select_picture(backgrounds):
     pictures = []
@@ -31,6 +38,11 @@ def select_picture(backgrounds):
         if mimetype and mimetype.split('/')[0] == "image":
             pictures.append (filename)
     picture = random.randrange (0, len(pictures))
+    current = current_picture()
+    if pictures[picture] == current:
+        picture = pictures.index(current) + 1
+        if picture >= len(pictures):
+            picture = 0
     fullpath = '"file:///' + backgrounds + pictures[picture] + '"'
     return fullpath
 
