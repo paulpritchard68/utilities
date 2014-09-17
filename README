@@ -1,10 +1,11 @@
+A collection of command line utilities.
+=======================================
+
 Photog
+------
 A simple photo renaming appplication
+For each image file in the current folder, replaces the prefix of the file name with a ten character string representing the date the photo was taken.
 
-USING PHOTOG
-===========
-SYNOPSIS
-photog PREFIX
-
-DESCRIPTION
-For each image file in the current folder, replaces the PREFIX of the file name with a ten character string representing the date the photo was taken.
+Killchar
+--------
+Recursively remove spaces and other annoying characters from file names
