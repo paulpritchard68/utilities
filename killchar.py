@@ -35,6 +35,7 @@ def rename_files():
         newfile = re.sub('__', '_', newfile)
         newfile = re.sub('\.{3}', '', newfile)
         newfile = re.sub('\._', '_', newfile)
+        newfile = re.sub('"', '', newfile)
         os.rename(filename, newfile)
 
 if __name__ == "__main__":
