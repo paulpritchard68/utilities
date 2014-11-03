@@ -1,11 +1,17 @@
-A collection of command line utilities.
-=======================================
+It's a tough universe out there...
+==================================
+
+... so here's a collection of command-line utilities that I find hand. All of them should be pretty self-explanatory and can be executed with the --help flag if you need more information.
+
+Feel free to contact me if you have any questions.
+
+
+Killchar
+--------
+Recursively remove spaces and other annoying characters from file names
+
 
 Photog
 ------
 A simple photo renaming appplication
 For each image file in the current folder, replaces the prefix of the file name with a ten character string representing the date the photo was taken.
-
-Killchar
---------
-Recursively remove spaces and other annoying characters from file names
