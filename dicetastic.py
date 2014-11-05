@@ -17,7 +17,7 @@
  with this program.  If not, see <http://www.gnu.org/licenses/>."""
 
 import sys
-import getopt
+import argparse
 from dicelib import Dice 
 
 def roll_dice():
@@ -45,20 +45,21 @@ def roll_dice():
 
 def main():
     """The program main procedure"""
-    loop = False
+    parser = argparse.ArgumentParser( \
+            description=\
+            'A dice-rolling library with a simple command-line interface.', \
+            epilog='Dice rolls should be in the form nDs where n is the \
+            number of dice and s is the number of sides on each die.')
+    parser.add_argument('--loop', action='store_const', \
+                        const=True, default=False, \
+                        help='Loop mode. Roll 0d0 to exit')
 
     try:
-        opts, args = getopt.getopt(sys.argv[1:], "l", ["loop"])
-    except getopt.GetoptError, err:
-        print str(err)
+        command_line = parser.parse_args()
+    except:
         sys.exit(2)
-
-    for opt, arg in opts:
-        if opt in ("-l", "--loop"):
-            print "Loop mode. Use dice string 0d0 to exit"
-            loop = True
-        else:
-            assert False, "unhandled option"
+    
+    loop=command_line.loop 
 
     exit_main = False
     if loop == False:
