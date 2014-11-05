@@ -5,6 +5,41 @@ It's a tough universe out there...
 
 Feel free to contact me if you have any questions.
 
+Dicetastic
+----------
+A dice-rolling library with a simple command-line interface
+
+    Using Dicetastic
+    ================
+    SYNOPSIS
+    dicetastic [OPTION]
+
+    DESCRIPTION
+    Launches the command line interface. This will prompt you to enter a dice roll in the nDs format familliar to roleplayers everywhere. 
+        n is the number of dice
+        D (or d) is the letter D
+        s is the number of sides of each die.
+
+    Eg. 3D6 will roll three six-sided dice and print the results as a list.
+
+    OPTIONS
+    -l --loop
+    Loop. Causes the program to loop through the request/roll until you enter a roll of 0d0
+
+    Using Dicelib
+    =============
+    This is the dice library. Class Dice has the following methods:
+
+    set_sides sets the number of sides of each die to be rolled (default is 6)
+
+    get_sides returns the number of sides of each die to be rolled
+
+    set_count sets the number of dice to be rolled (default is 1)
+
+    get_count returns the number of dice to be rolled
+
+    roll_dice rolls the dice and returns the results as a list.
+
 
 Killchar
 --------
