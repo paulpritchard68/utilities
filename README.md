@@ -3,6 +3,9 @@
 
 Feel free to contact me if you have any questions.
 
+## StrRexx ##
+A really simple Rexx interpreter, written in Rexx. This is handy if you want to interactively play around with Rexx commands.
+
 ## Killchar ##
 Recursively remove spaces and other annoying characters from file names
 
