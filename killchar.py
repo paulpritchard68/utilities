@@ -30,7 +30,7 @@ def rename_files():
     for filename in file_list:
         mimetype = mimetypes.guess_type(filename)[0]
         newfile = re.sub(' ', '_', filename)
-        newfile = re.sub('[()\[\],\'&!?]', '', newfile)
+        newfile = re.sub('[()\[\],\'&!?’]', '', newfile)
         newfile = re.sub('_-_', '-', newfile)
         newfile = re.sub('__', '_', newfile)
         newfile = re.sub('\.{3}', '', newfile)
