@@ -22,23 +22,29 @@ import os
 import mimetypes
 import re
 
+def new_name(text_string):
+    new_text = re.sub(' ', '_', text_string)
+    new_text = re.sub('[()\[\],\'&!?’]', '', new_text)
+    new_text = re.sub('_-_', '-', new_text)
+    new_text = re.sub('__', '_', new_text)
+    new_text = re.sub('\.{3}', '', new_text)
+    new_text = re.sub('\._', '_', new_text)
+    new_text = re.sub('"', '', new_text)
+    new_text = re.sub('_–_', '-', new_text)
+    new_text = re.sub('–', '', new_text)
+    return new_text
+    
 def rename_files():
     """ Iterates through the list of files in the current directory.
         For all  files, attempts to rename the file by replacing the annoying characters """    
     current_path = os.getcwd()
-    file_list = os.listdir(current_path)
-    for filename in file_list:
-        mimetype = mimetypes.guess_type(filename)[0]
-        newfile = re.sub(' ', '_', filename)
-        newfile = re.sub('[()\[\],\'&!?’]', '', newfile)
-        newfile = re.sub('_-_', '-', newfile)
-        newfile = re.sub('__', '_', newfile)
-        newfile = re.sub('\.{3}', '', newfile)
-        newfile = re.sub('\._', '_', newfile)
-        newfile = re.sub('"', '', newfile)
-        newfile = re.sub('_–_', '-', newfile)
-        newfile = re.sub('–', '', newfile)
-        os.rename(filename, newfile)
+    for dirname, dirnames, filenames in os.walk(current_path):
+        new_dir = new_name(dirname)
+        os.rename(dirname, new_dir)
+        os.chdir(new_dir)
+        for filename in filenames:
+            mimetype = mimetypes.guess_type(filename)[0]
+            os.rename(filename, new_name(filename))
 
 if __name__ == "__main__":
     rename_files()
