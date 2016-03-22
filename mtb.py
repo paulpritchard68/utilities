@@ -1,5 +1,5 @@
-#! /usr/bin/python2
-""" Yet another, veryt simple background switcher for the Gnome 3 Desktop
+#! /usr/bin/python
+""" Yet another, very simple background switcher for the Gnome 3 Desktop
 
  mtb.py
  Copyright (C) Paul Pritchard 2013
