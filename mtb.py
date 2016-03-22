@@ -19,16 +19,13 @@
 import os
 import random
 import mimetypes
-from time import localtime, sleep
-import sys
-import argparse
-from configparser import ConfigParser
+from time import localtime
 import subprocess
 
 def current_picture():
-    current_path = str(subprocess.check_output(["DISPLAY=:0 GSETTINGS_BACKEND=dconf gsettings get org.gnome.desktop.background picture-uri"], shell=True)).split("/")
-    current_picture = current_path[len(current_path)-1]
-    return current_picture[0:len(current_picture)-2]
+    path_now = str(subprocess.check_output(["DISPLAY=:0 GSETTINGS_BACKEND=dconf gsettings get org.gnome.desktop.background picture-uri"], shell=True)).split("/")
+    picture_now = path_now[len(path_now)-1]
+    return picture_now[0:len(picture_now)-2]
 
 
 def select_picture(backgrounds):
@@ -46,7 +43,7 @@ def select_picture(backgrounds):
     fullpath = '"file:///' + backgrounds + pictures[picture] + '"'
     return fullpath
 
-def switch_wallpaper(noloop):
+def switch_wallpaper():
 
     while 1 == 1:
         time_now = localtime()
@@ -74,50 +71,6 @@ def switch_wallpaper(noloop):
             fullpath = select_picture(backgrounds)
             os.system("DISPLAY=:0 GSETTINGS_BACKEND=dconf gsettings set org.gnome.desktop.screensaver picture-uri '%s'" % (fullpath))
 
-        if noloop:
-            break
+        return
 
-        config = ConfigParser()
-        config.read(['mtb.cfg', os.path.expanduser('~/.mtb.cfg')])
-
-        try:
-            wait_minutes = config.get('Main', 'wait')
-            wait_seconds = int(wait_minutes) * 60
-        except:
-            wait_seconds = 1200
-
-        sleep(wait_seconds)
-
-def set_wait(wait):
-    config = ConfigParser()
-    config.read(['mtb.cfg', os.path.expanduser('~/.mtb.cfg')])
-    config_out = open(os.path.expanduser('~/.mtb.cfg'), 'w')
-
-    try:
-        config.set('Main', 'wait', wait)
-    except:
-        config.add_section('Main')
-        config.set('Main', 'wait', wait)
-
-    config.write(config_out)
-    config_out.close()
-
-def main():
-    """ The main event
-        Parses the entered arguments and figures out what to do with them """
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-w', '--wait', action='store', help='Wait time (minutes)')
-    parser.add_argument('--noloop', action='store_true', help='Run once, then exit')
-
-    try:
-        args = parser.parse_args()
-    except:
-        sys.exit(2)
-
-    if args.wait:
-        set_wait(args.wait)
-    else:
-        switch_wallpaper(args.noloop)
-
-if __name__ == "__main__":
-    main()
+switch_wallpaper()
