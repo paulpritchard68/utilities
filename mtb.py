@@ -22,7 +22,7 @@ import mimetypes
 from time import localtime, struct_time, sleep
 import sys
 import argparse
-from ConfigParser import ConfigParser
+from configparser import ConfigParser
 import subprocess
 
 def current_picture():
@@ -55,15 +55,14 @@ def switch_wallpaper(noloop):
             hour_now = '0' + hour_now
 
         backgrounds = os.environ['HOME'] + "/Pictures/Backgrounds/"
-        timefolders = os.walk(backgrounds).next()[1]
-        timefolders.sort()
-        timefolders.reverse()
+        timefolders = sorted(os.walk(backgrounds), reverse=True)
         current_folder = ''
         for tick in timefolders:
-            if current_folder == '' and tick >= '00' and tick <= '23': 
-                current_folder = tick + '/'
-            if tick >= '00' and tick <= '23' and tick <= hour_now:
-                current_folder = tick + '/'
+            tock=str(tick[0])[-2:]
+            if current_folder == '' and tock >= '00' and tock <= '23': 
+                current_folder = tock + '/'
+            if tock >= '00' and tock <= '23' and tock <= hour_now:
+                current_folder = tock + '/'
                 break
 
         backgrounds = backgrounds + current_folder
