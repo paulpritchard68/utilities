@@ -2,24 +2,24 @@
 """ Yet another, veryt simple background switcher for the Gnome 3 Desktop
 
  mtb.py
- Copyright (C) Paul Pritchard 2013 
- 
- MTB is free software: you can redistribute it and/or modify it under the 
- terms of the GNU General Public License as published by the Free Software 
- Foundation, either version 3 of the License, or (at your option) any 
+ Copyright (C) Paul Pritchard 2013
+
+ MTB is free software: you can redistribute it and/or modify it under the
+ terms of the GNU General Public License as published by the Free Software
+ Foundation, either version 3 of the License, or (at your option) any
  later version.
- 
- MTB is distributed in the hope that it will be useful, but WITHOUT ANY 
- WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
+
+ MTB is distributed in the hope that it will be useful, but WITHOUT ANY
+ WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
- 
+
  You should have received a copy of the GNU General Public License along
  with this program.  If not, see <http://www.gnu.org/licenses/>."""
 
 import os
 import random
 import mimetypes
-from time import localtime, struct_time, sleep
+from time import localtime, sleep
 import sys
 import argparse
 from configparser import ConfigParser
@@ -36,8 +36,8 @@ def select_picture(backgrounds):
     for filename in os.listdir(backgrounds):
         mimetype = mimetypes.guess_type(filename)[0]
         if mimetype and mimetype.split('/')[0] == "image":
-            pictures.append (filename)
-    picture = random.randrange (0, len(pictures))
+            pictures.append(filename)
+    picture = random.randrange(0, len(pictures))
     current = current_picture()
     if pictures[picture] == current:
         picture = pictures.index(current) + 1
@@ -58,8 +58,8 @@ def switch_wallpaper(noloop):
         timefolders = sorted(os.walk(backgrounds), reverse=True)
         current_folder = ''
         for tick in timefolders:
-            tock=str(tick[0])[-2:]
-            if current_folder == '' and tock >= '00' and tock <= '23': 
+            tock = str(tick[0])[-2:]
+            if current_folder == '' and tock >= '00' and tock <= '23':
                 current_folder = tock + '/'
             if tock >= '00' and tock <= '23' and tock <= hour_now:
                 current_folder = tock + '/'
@@ -98,17 +98,17 @@ def set_wait(wait):
     except:
         config.add_section('Main')
         config.set('Main', 'wait', wait)
-    
+
     config.write(config_out)
     config_out.close()
 
 def main():
-    """ The main event 
+    """ The main event
         Parses the entered arguments and figures out what to do with them """
     parser = argparse.ArgumentParser()
     parser.add_argument('-w', '--wait', action='store', help='Wait time (minutes)')
     parser.add_argument('--noloop', action='store_true', help='Run once, then exit')
-    
+
     try:
         args = parser.parse_args()
     except:
