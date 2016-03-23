@@ -34,7 +34,9 @@ The manual timing options have now been removed in favour of Systemd (or cron, i
 In order to use this application with Systemd, you need to amend mtb.service so that it points to the correct user and full path. Then copy both this file and mtb.timer to ~/.config/systemd/user
 
 Once Done, the following commands should be entered as root:
+```bash
 systemctl --user enable mtb.timer
 systemctl --user start mtb.timer
+```
 
 And your background should switch every 20 minutes.
