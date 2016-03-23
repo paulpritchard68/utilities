@@ -29,14 +29,12 @@ You will need to manually create these folders before the script can be run. You
 MTB will also randomise the lock screen, if desired. This is not time sensitive - you just need to have a one or more pictures in ~/Pictures/Backgrounds/lock
 
 ### Using MTB ###
-MTB can be set to change backgrounds at any interval (in minutes), but you do need to configure it first with the --wait switch.
+The manual timing options have now been removed in favour of Systemd (or cron, if that floats your boat). 
 
-For example:
-mtb --wait=15
-... will set a wait time of 15 minutes between background switches.
+In order to use this application with Systemd, you need to amend mtb.service so that it points to the correct user and full path. Then copy both this file and mtb.timer to ~/.config/systemd/user
 
-If no wait time is set, a default of 20 minutes is used.
+Once Done, the following commands should be entered as root:
+systemctl --user enable mtb.timer
+systemctl --user start mtb.timer
 
-The switcher can be started by executing mtb with no options. This call is best added in your gnome startup applications.
-
-Other options can be displayed with mtb -h
+And your background should switch every 20 minutes.

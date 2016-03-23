@@ -1,0 +1,11 @@
+[Unit]
+Description=A Gnome 3 background switcher
+
+[Service]
+Type=oneshot
+Environment=DISPLAY=:0
+ExecStart=/usr/local/bin/mtb
+StandardOutput=journal
+
+[Install]
+WantedBy=basic.target
