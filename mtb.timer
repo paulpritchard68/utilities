@@ -5,6 +5,3 @@ Description=Change the background every 20 minutes
 OnCalendar=*:0/20
 Persistent=true
 Unit=mtb.service
-
-[Install]
-WantedBy=mtb.service
