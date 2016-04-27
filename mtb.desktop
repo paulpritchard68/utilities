@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Exec=systemctl --user start mtb.timer
+Hidden=false
+X-GNOME-Autostart-enabled=true
+Name=MTB
+Comment=Launch the background switcher
