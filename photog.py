@@ -32,7 +32,8 @@ def get_date(filename):
         decoded = TAGS.get(tag, tag)
         if decoded == 'DateTimeOriginal':
             asciival=str(value).encode('ascii')
-            return (asciival[3:7] + asciival[8:10] + asciival[11:13])
+            asciistring=asciival.decode('ascii')
+            return (asciistring[0:4] + asciistring[5:7] + asciistring[8:10])
 
 def rename_files(prefix):
     """ Iterates through the list of files in the current directory.
