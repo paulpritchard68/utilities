@@ -32,7 +32,7 @@ MTB will also randomise the lock screen, if desired. This is not time sensitive 
 The manual timing options have now been removed in favour of Systemd (or cron, if that floats your boat). 
 
 In order to use this application with Systemd you will need to copy both mtb.service and mtb.timer to ~/.config/systemd/user
-And to ensure it restarts when you reboot, you will to copy mtb.desktop tp ~/.config/autostart
+And to ensure it restarts when you reboot, you will to copy mtb.desktop to ~/.config/autostart
 
 Once Done, the following commands should be entered:
 ```bash
