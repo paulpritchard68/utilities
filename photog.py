@@ -48,7 +48,7 @@ def rename_files(prefix):
         mimetype = mimetypes.guess_type(filename)[0]
         if mimetype and mimetype.split('/')[0] == "image" and filename.startswith(prefix):
             date_string = get_date(filename)
-            if date_string != 'error':
+            if date_string != 'error' and date_string is not None:
                 os.rename(filename, date_string + filename[len(prefix):])
 
 def get_prefix():
