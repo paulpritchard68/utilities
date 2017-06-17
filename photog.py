@@ -28,12 +28,15 @@ def get_date(filename):
     """ Retrieves the date the photo was taken """
     image = Image.open(filename)
     info = image._getexif()
-    for tag, value in info.items():
-        decoded = TAGS.get(tag, tag)
-        if decoded == 'DateTimeOriginal':
-            asciival=str(value).encode('ascii')
-            asciistring=asciival.decode('ascii')
-            return (asciistring[0:4] + asciistring[5:7] + asciistring[8:10])
+    try:
+        for tag, value in info.items():
+            decoded = TAGS.get(tag, tag)
+            if decoded == 'DateTimeOriginal':
+                asciival=str(value).encode('ascii')
+                asciistring=asciival.decode('ascii')
+                return (asciistring[0:4] + asciistring[5:7] + asciistring[8:10])
+    except:
+        return 'error'
 
 def rename_files(prefix):
     """ Iterates through the list of files in the current directory.
@@ -45,7 +48,8 @@ def rename_files(prefix):
         mimetype = mimetypes.guess_type(filename)[0]
         if mimetype and mimetype.split('/')[0] == "image" and filename.startswith(prefix):
             date_string = get_date(filename)
-            os.rename(filename, date_string + filename[len(prefix):])
+            if date_string != 'error'
+                os.rename(filename, date_string + filename[len(prefix):])
 
 def get_prefix():
     """ Parse the prefix to be changed """
