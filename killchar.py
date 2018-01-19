@@ -32,6 +32,7 @@ def new_name(text_string):
     new_text = re.sub('"', '', new_text)
     new_text = re.sub('_–_', '-', new_text)
     new_text = re.sub('–', '', new_text)
+    new_text = re.sub('—', '-', new_text)
     return new_text
     
 def rename_files():
